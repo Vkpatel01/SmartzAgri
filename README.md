@@ -45,6 +45,7 @@ SmartAgri is not just a tool; it's a comprehensive solution that aims to revolut
 [![Watch the video](https://www.youtube.com/watch?v=1L_zTavQVMA)](https://www.youtube.com/watch?v=1L_zTavQVMA)
 ![img](https://github.com/Vkpatel01/SmartAgri/assets/80051906/84617a2b-0db2-44e2-bf0a-87c07728ca44)
 
+[Infinite Void PPT](https://docs.google.com/presentation/d/1F8ISmcdp6ntXoSyKy6noj8mcz6x5VhKa/edit?usp=sharing&ouid=114038942187781102017&rtpof=true&sd=true){:target="_blank"}
 
 
 
