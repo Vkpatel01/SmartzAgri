@@ -42,4 +42,5 @@ SmartAgri is not just a tool; it's a comprehensive solution that aims to revolut
 
 
 ## Demo video
-!['Demo Video']("https://www.youtube.com/watch?v=1L_zTavQVMA")
+[![Watch the video](https://www.youtube.com/watch?v=1L_zTavQVMA)](https://www.youtube.com/watch?v=1L_zTavQVMA)
+
