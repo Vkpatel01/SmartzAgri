@@ -1,0 +1,11 @@
+{
+  "name": "smart-agri",
+  "version": "1.0.0",
+  "description": "\"This is app will suggest crops on the basis of soil quality\"",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "\"Sanjeet Kumar, Vishal Kumar Patel, Ved Anand and Twisha\"",
+  "license": "ISC"
+}
