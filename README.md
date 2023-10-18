@@ -32,7 +32,7 @@ SmartAgri is an innovative agricultural solution designed to empower farmers by 
 
 SmartAgri is not just a tool; it's a comprehensive solution that aims to revolutionize traditional farming practices, making agriculture smarter, more efficient, and environmentally sustainable.
 
-###Infinite Void
+##Infinite Void
 ## Team Members
 - **Vishal Kumar Patel** 
 - **Sanjeet Kumar**     
