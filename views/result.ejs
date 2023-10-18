@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/crop.css">
+  <title>Crop Prediction Form</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">SmartzAgri</div>
+    <ul class="nav-list">
+      <li><a href="#">Home</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-container">
+    <h2>Find out the most suitable crop to grow in your farm</h2>
+
+    <form method="POST" action="">
+      <div class="form-group">
+        <label for="Nitrogen">Nitrogen</label>
+        <input
+          type="number"
+          class="form-control"
+          id="Nitrogen"
+          name="nitrogen"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Phosphorous">Phosphorous</label>
+        <input
+          type="number"
+          class="form-control"
+          id="Phosphorous"
+          name="phosphorous"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Pottasium">Pottasium</label>
+        <input
+          type="number"
+          class="form-control"
+          id="Pottasium"
+          name="pottasium"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="ph">pH Level</label>
+        <input
+          type="number"
+          step="0.01"
+          class="form-control"
+          id="ph"
+          name="ph"
+          placeholder="Enter the value"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Rainfall">Rainfall (in mm)</label>
+        <input
+          type="number"
+          step="0.01"
+          class="form-control"
+          id="Rainfall"
+          name="rainfall"
+          placeholder="Enter the value"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="State">State</label>
+        <select
+          onchange="print_city('state', this.selectedIndex);"
+          id="sts"
+          name="stt"
+          class="form-control"
+          required
+        ></select>
+        <br />
+        <label for="City">City</label>
+        <select
+          id="state"
+          class="form-control"
+          name="city"
+          required
+        ></select>
+        <script language="javascript">
+          print_state("sts");
+        </script>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          type=" reset"
+          class="btn btn-info"
+        >
+          Predict
+        </button>
+        <button
+          onclick="getRandomCrop()"
+          class="btn btn-info"
+        >
+          Predict 2
+        </button>
+      </div>
+    </form>
+    <div id="predictionMessage" style="margin-top: 20px; display: none;">
+      <p>The best possible crop is: <span id="predictedCrop"></span></p>
+    </div>
+  </div>
+  <script language="javascript">
+    function predictCrop() {
+      // Add your logic to predict the crop here
+      // For now, let's assume the prediction is "Rice"
+      var predictedCrop = "Rice";
+
+      // Display the prediction message
+      document.getElementById('predictionMessage').style.display = 'block';
+      document.getElementById('predictedCrop').innerText = predictedCrop;
+    }
+  </script>
+  <script language="javascript">
+    function print_state(stateElementId) {
+      var states = [
+        "Select State",
+        "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana",
+        "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
+        "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
+        "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu",
+        "Delhi", "Lakshadweep", "Puducherry"
+      ];
+  
+      var stateElement = document.getElementById(stateElementId);
+  
+      for (var i = 0; i < states.length; i++) {
+        var option = document.createElement("option");
+        option.value = states[i];
+        option.text = states[i];
+        stateElement.add(option);
+      }
+    }
+  
+    function print_city(cityElementId, stateIndex) {
+      var cities = [
+        ["Select City"],
+        ["Visakhapatnam", "Vijayawada", "Guntur"],
+        ["Itanagar", "Naharlagun", "Pasighat"],
+        ["Guwahati", "Silchar", "Dibrugarh"],
+        ["Patna", "Gaya", "Bhagalpur"],
+        ["Raipur", "Bilaspur", "Durg"],
+        ["Panaji", "Vasco da Gama", "Mapusa"],
+        ["Ahmedabad", "Surat", "Vadodara"],
+        ["Chandigarh", "Panchkula", "Mohali"],
+        ["Shimla", "Manali", "Dharamshala"],
+        ["Ranchi", "Jamshedpur", "Dhanbad"],
+        ["Bengaluru", "Mysuru", "Hubballi"],
+        ["Thiruvananthapuram", "Kochi", "Kozhikode"],
+        ["Bhopal", "Indore", "Jabalpur"],
+        ["Mumbai", "Pune", "Nagpur"],
+        ["Imphal", "Thoubal", "Bishnupur"],
+        ["Shillong", "Tura", "Jowai"],
+        ["Aizawl", "Lunglei", "Champhai"],
+        ["Kohima", "Dimapur", "Mokokchung"],
+        ["Bhubaneswar", "Cuttack", "Rourkela"],
+        ["Chandigarh", "Amritsar", "Ludhiana"],
+        ["Jaipur", "Udaipur", "Jodhpur"],
+        ["Gangtok", "Namchi", "Mangan"],
+        ["Chennai", "Coimbatore", "Madurai"],
+        ["Hyderabad", "Warangal", "Nizamabad"],
+        ["Agartala", "Udaipur", "Dharmanagar"],
+        ["Lucknow", "Kanpur", "Varanasi"],
+        ["Dehradun", "Haridwar", "Rishikesh"],
+        ["Kolkata", "Howrah", "Durgapur"],
+        ["Port Blair", "Machilipatnam", "Kadapa"],
+        ["Chandigarh", "Panchkula", "Mohali"],
+        ["Daman", "Diu", "Dadra"],
+        ["New Delhi", "North Delhi", "South Delhi"],
+        ["Kavaratti", "Agatti Island", "Andrott"],
+        ["Puducherry", "Karaikal", "Mahe"]
+      ];
+  
+      var cityElement = document.getElementById(cityElementId);
+  
+      // Clear existing options
+      cityElement.length = 0;
+  
+      // Add default "Select City" option
+      var defaultOption = document.createElement("option");
+      defaultOption.value = "Select City";
+      defaultOption.text = "Select City";
+      cityElement.add(defaultOption);
+  
+      // Add cities based on the selected state
+      for (var i = 0; i < cities[stateIndex].length; i++) {
+        var option = document.createElement("option");
+        option.value = cities[stateIndex][i];
+        option.text = cities[stateIndex][i];
+        cityElement.add(option);
+      }
+    }
+  
+    print_state("sts");
+
+
+
+    // prediction 
+
+    // Define arrays for each season with crop names
+const springCrops = ["Wheat", "Barley", "Mustard", "Gram", "Lentils"];
+const summerCrops = ["Rice", "Cotton", "Sugarcane", "Maize", "Soybean"];
+const monsoonCrops = ["Rice", "Maize", "Millets", "Turmeric", "Groundnut"];
+const autumnCrops = ["Rice", "Wheat", "Barley", "Mustard", "Lentils"];
+
+// Function to get a random crop based on the current season
+function getRandomCrop() {
+  // Get the current month (assuming it's represented as a number, e.g., January is 0)
+  const currentMonth = new Date().getMonth();
+
+  // Determine the season based on the month
+  let season;
+  if (currentMonth >= 2 && currentMonth <= 4) {
+    season = springCrops;
+  } else if (currentMonth >= 5 && currentMonth <= 7) {
+    season = summerCrops;
+  } else if (currentMonth >= 8 && currentMonth <= 10) {
+    season = monsoonCrops;
+  } else {
+    season = autumnCrops;
+  }
+
+  // Get a random index from the selected season array
+  const randomIndex = Math.floor(Math.random() * season.length);
+
+  // Return the random crop name
+  return season[randomIndex];
+}
+
+// Example usage
+const randomCrop = getRandomCrop();
+const result = `The randomly selected crop of the season is ${randomCrop}.`;
+console.log(result);
+
+const predictedCrop= document.querySelector("#predictedCrop");
+
+predictedCrop.innerHTML=result;
+
+
+  </script>
+
+ 
+  
+</body>
+</html>
