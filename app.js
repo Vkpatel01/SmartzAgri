@@ -4,16 +4,16 @@ import bodyParser from "body-parser";
 import path from "path";
 import ejs from "ejs";
 import dotenv from "dotenv";
-import mysql from "mysql2"
+import mysql from "mysql2";
+import axios from 'axios';
+
+import { spawn } from "child_process";
 
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-
-// Now you can use __dirname in your code
 
 
 dotenv.config();
@@ -47,6 +47,8 @@ let curentUser={
   username:"",
   password:""
 }
+
+
 
 
 
@@ -105,7 +107,52 @@ app.get("/logout", (req,res)=>{
 })
 
 app.get("/crop", (req,res)=>{
-    res.render("crop");
+    res.render("crop",{prediction:" "});
+})
+
+
+/* Connecting Backend with ML model */
+
+// Define the route to handle the prediction
+app.post('/predict', (req, res) => {
+      // Assuming the request body contains user input data
+      const cropDetails = req.body;
+      
+      const userValues = [cropDetails.nitrogen,cropDetails.phosphorous,cropDetails.pottasium,cropDetails.ph,cropDetails.rainfall]
+
+
+      console.log(userValues)
+      // Spawn a Python child process
+      const pythonProcess = spawn('python', [__dirname+'/ML/modelRes.py', JSON.stringify(userValues)]);
+  
+      // Collect data from the Python script
+      let result = '';
+      pythonProcess.stdout.on('data', (data) => {
+        result += data;
+      });
+      console.log("output: "+result);
+
+      // Handle the end of the Python script execution
+      pythonProcess.on('close', (code) => {
+        if (code === 0) {
+          // Successful execution
+          console.log(result.trim());
+          res.render("crop",{prediction:result});
+        } else {
+          // Error in execution
+          console.log("Error in Python script execution");
+          res.status(500).send('Error in Python script execution');
+        }
+      });
+    
+  });
+
+
+
+
+
+app.post("/crop", (req,res)=>{
+    res.sendFile(__dirname+"/crop.html");
 })
 
 
@@ -152,7 +199,7 @@ app.post("/signup", async(req,res)=>{
         });
 
         // res.render("dashboard");
-        res.render("crop");
+        res.redirect("crop");
         
     } catch (error) {
       console.error(error);
