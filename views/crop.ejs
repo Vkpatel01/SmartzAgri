@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/crop.css">
+  <title>Crop Prediction Form</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">SmartzAgri</div>
+    <ul class="nav-list">
+      <li><a href="#">Home</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-container">
+    <h2>Find out the most suitable crop to grow in your farm</h2>
+
+    <form id="cropForm" action="/predict" method="post">
+      <div class="form-group">
+        <label for="Nitrogen">Nitrogen</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Nitrogen"
+          name="nitrogen"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Phosphorous">Phosphorous</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Phosphorous"
+          name="phosphorous"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Pottasium">Pottasium</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Pottasium"
+          name="pottasium"
+          placeholder="Enter the value (example: 50)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="ph">pH Level</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ph"
+          name="ph"
+          placeholder="Enter the value"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="Rainfall">Rainfall (in mm)</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Rainfall"
+          name="rainfall"
+          placeholder="Enter the value"
+          required
+        />
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          type="submit"
+          class="btn btn-info"
+        >
+          Predict
+        </button>
+        
+      </div>
+    </form>
+    <div id="predictionMessage" style="margin-top: 20px; ">
+      <p>The best possible crop is: <span ><strong id="predictedCrop" style="font-size: large;"> <%= prediction %> </strong></span></p>
+    </div>
+  </div>
+  
+ 
+
+ 
+  
+</body>
+</html>
