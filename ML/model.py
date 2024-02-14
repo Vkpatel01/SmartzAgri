@@ -9,55 +9,70 @@ from sklearn.metrics import accuracy_score
 # Get the current working directory
 current_directory = os.getcwd()
 
+
+# Import necessary libraries
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+
+
+
 # Load your dataset
-dataset = pd.read_csv(current_directory + "/data-set/CropDataSet.csv")
-# dataset.head()
+train_dataset = pd.read_csv(current_directory + "/ML/data-set/TRAINFILE/NewData.csv")
+test_dataset = pd.read_csv(current_directory + "/ML/data-set/TESTFILE/NewTestData.csv")
+
+# Droping "Unnamed: 0" which show Sirial No.
+train_dataset = train_dataset.drop(columns=['Unnamed: 0'])
+test_dataset = test_dataset.drop(columns=['Unnamed: 0'])
+
 
 # Assuming the columns are named appropriately, adjust as needed
-X = dataset.drop('label', axis=1)  # Features
-y = dataset['label']  # Target
 
+columns_to_drop = ['Crop']
+X_train = train_dataset.drop(columns=columns_to_drop, axis=1)
+y_train = train_dataset['Crop']  # Target for training
 
-# one-hot encode the categorical feature "Avarage"
-dataset = pd.get_dummies(dataset, columns=['label'])
+# Assuming the columns are named appropriately, adjust as needed
+columns_to_drop = ['Crop']  # Replace with your actual column names
+X_test = test_dataset.drop(columns=columns_to_drop, axis=1)  # Features for training
+y_test = test_dataset['Crop']  # Target for training
 
-# Split data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Standardize the features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
 # Create a Naive Bayes classifier
 clf = GaussianNB()
 
-# Train the classifier
+# Train the classifier with PCA-transformed features
 clf.fit(X_train, y_train)
 
+# Make predictions on the training set with PCA-transformed features
+y_train_pred = clf.predict(X_train)
+
+# Evaluate the accuracy on the training set
+train_accuracy = accuracy_score(y_train, y_train_pred)
+
+# Make predictions on the test set with PCA-transformed features
+y_test_pred = clf.predict(X_test)
+
+# Evaluate the accuracy on the test set
+test_accuracy = accuracy_score(y_test, y_test_pred)
+
+
+labels = ['Test Accuracy']
+accuracies = [ test_accuracy]
+
+
+y_pred= clf.predict(X_test)
+accuracy= accuracy_score(y_test, y_pred)
+
+print("Accuracy:", f"{accuracy*100:.2f}%")
+
+
+
 # Save the trained model using Pickle
-model_filename = 'crop_prediction_model.pkl'
+model_filename = current_directory + '/ML/crop_prediction_model.pkl'
 pickle.dump(clf, open(model_filename, 'wb'))
-
-# Make predictions on the test set
-y_pred = clf.predict(X_test)
-
-# Evaluate the accuracy
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy * 100:.2f}%")
-
-
-
-# Assuming feature_names is a list containing the names of your features
-feature_names = ['N', 'P', 'K', 'ph', 'rainfall']
-
-# Get user input for each feature
-user_values = []
-for feature in feature_names:
-    value = float(input(f"Enter value for {feature}: "))
-    user_values.append(value)
-
-# Create a DataFrame with user input
-new_conditions = pd.DataFrame([user_values], columns=feature_names)
-
-# Make the prediction
-predicted_crop = clf.predict(new_conditions)[0]
-
-# Print the recommended crop
-print(f"Recommended Crop: {predicted_crop}")
-

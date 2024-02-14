@@ -1,0 +1,60 @@
+/* style.css */
+:root{
+    --primary-bgcolor:rgb(230 230 230);
+    --nav-bgcolor:rgb(149 185 124 / 56%);
+    --primary-text-color:#f0f0f0e0;
+    --form-border-color1:#ccc;
+    --form-bgcolor:#fff;
+    --primary-btnColor:#4caf50;
+  }
+
+body {
+    backdrop-filter: blur(2px);
+    background-color: var(--primary-bgcolor);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+
+  }
+  
+  .containerCrop {
+    max-width: 1000px;
+    margin: 10px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .crop-title {
+    color: #333;
+    text-align: center;
+  }
+  
+  .cultivation-section {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    color: #3498db;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 8px;
+  }
+  
+  .estimated-cost {
+    margin-top: 20px;
+  }
+  
+  .cost {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
