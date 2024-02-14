@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>Crop Form</title>
+</head>
+<body>
+  <h1>Crop Information Form</h1>
+  <form action="/formSubmit" method="post">
+    <label for="cropName">Crop Name:</label>
+    <input type="text" id="cropName" name="cropName" required><br><br>
+
+    <!-- Add input fields for each step -->
+    <label for="Land_Preparation">Land Preparation:</label>
+    <textarea id="Land_Preparation" name="Land_Preparation" rows="4" required></textarea><br><br>
+
+    <label for="Soil_Testing">Soil Testing:</label>
+    <textarea id="Soil_Testing" name="Soil_Testing" rows="4" required></textarea><br><br>
+
+    <label for="Seed_Selection">Seed Selection:</label>
+    <textarea id="Seed_Selection" name="Seed_Selection" rows="4" required></textarea><br><br>
+
+    <label for="Sowing">Sowing:</label>
+    <textarea id="Sowing" name="Sowing" rows="4" required></textarea><br><br>
+
+    <label for="Irrigation">Irrigation:</label>
+    <textarea id="Irrigation" name="Irrigation" rows="4" required></textarea><br><br>
+
+    <label for="Weed_Control">Weed Control :</label>
+    <textarea id="Weed_Control" name="Weed_Control" rows="4" required></textarea><br><br>
+
+    <label for="Fertilization">Fertilization :</label>
+    <textarea id="Fertilization" name="Fertilization" rows="4" required></textarea><br><br>
+
+    <label for="Disease_and_Pest_Management">Disease and Pest Management:</label>
+    <textarea id="Disease_and_Pest_Management" name="Disease_and_Pest_Management" rows="4" required></textarea><br><br>
+
+    <label for="Crop_Monitoring">Crop Monitoring:</label>
+    <textarea id="Crop_Monitoring" name="Crop_Monitoring" rows="4" required></textarea><br><br>
+
+    <label for="Harvesting">Harvesting :</label>
+    <textarea id="Harvesting" name="Harvesting" rows="4" required></textarea><br><br>
+
+    <label for="Drying_and_Storage">Drying and Storage:</label>
+    <textarea id="Drying_and_Storage" name="Drying_and_Storage" rows="4" required></textarea><br><br>
+
+    
+
+    <label for="cost">Estimated Cost (per hectare):</label>
+    <input type="text" id="cost" name="cost" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

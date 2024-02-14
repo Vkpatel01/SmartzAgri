@@ -26,8 +26,12 @@ print(predicted_crop)
 
 
 
+
+
+# Checking manualy the crop pridiction 
+
 # # Assuming feature_names is a list containing the names of your features
-# feature_names = ['N', 'P', 'K', 'ph', 'rainfall']
+# feature_names = ['N', 'P', 'K', 'pH', 'rainfall','temperature']
 
 # # Get user input for each feature
 # user_values = []

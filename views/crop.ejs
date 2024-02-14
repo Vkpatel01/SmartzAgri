@@ -1,96 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/crop.css">
-  <title>Crop Prediction Form</title>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="brand">SmartzAgri</div>
-    <ul class="nav-list">
-      <li><a href="#">Home</a></li>
-    </ul>
-  </nav>
+<%- include('partials/header') %>
+<h2 class="blurred-overlay" style="margin: auto; margin-top: 10px;">Sow the Seeds of Success: Choosing the Right Crop for Your Farm</h2>
+<div class="form-container">
+  
 
-  <div class="form-container">
-    <h2>Find out the most suitable crop to grow in your farm</h2>
-
-    <form id="cropForm" action="/predict" method="post">
-      <div class="form-group">
-        <label for="Nitrogen">Nitrogen</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Nitrogen"
-          name="nitrogen"
-          placeholder="Enter the value (example: 50)"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="Phosphorous">Phosphorous</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Phosphorous"
-          name="phosphorous"
-          placeholder="Enter the value (example: 50)"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="Pottasium">Pottasium</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Pottasium"
-          name="pottasium"
-          placeholder="Enter the value (example: 50)"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="ph">pH Level</label>
-        <input
-          type="text"
-          class="form-control"
-          id="ph"
-          name="ph"
-          placeholder="Enter the value"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="Rainfall">Rainfall (in mm)</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Rainfall"
-          name="rainfall"
-          placeholder="Enter the value"
-          required
-        />
-      </div>
-      <div class="d-flex justify-content-center">
-        <button
-          type="submit"
-          class="btn btn-info"
-        >
-          Predict
-        </button>
-        
-      </div>
-    </form>
-    <div id="predictionMessage" style="margin-top: 20px; ">
-      <p>The best possible crop is: <span ><strong id="predictedCrop" style="font-size: large;"> <%= prediction %> </strong></span></p>
+  <form id="cropForm" action="/predict" method="post">
+    <div class="form-group">
+      <label for="Nitrogen">Nitrogen</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Nitrogen"
+        name="N"
+        placeholder="Enter the value (example: 50)"
+        required
+      />
     </div>
-  </div>
-  
- 
+    <div class="form-group">
+      <label for="Phosphorous">Phosphorous</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Phosphorous"
+        name="P"
+        placeholder="Enter the value (example: 50)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="Pottasium">Pottasium</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Pottasium"
+        name="K"
+        placeholder="Enter the value (example: 50)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="ph">pH Level</label>
+      <input
+        type="text"
+        class="form-control"
+        id="ph"
+        name="pH"
+        placeholder="Enter the value"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="Rainfall">Rainfall (in mm)</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Rainfall"
+        name="rainfall"
+        placeholder="Enter the value"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="temp">Average Temprature (&#8451)</label>
+      <input
+        type="text"
+        class="form-control"
+        id="temp"
+        name="temperature"
+        placeholder="Enter the value"
+        required
+      />
+    </div>
+    <div class="d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn btn-info"
+      >
+        Predict
+      </button>
+      
+    </div>
 
- 
-  
-</body>
-</html>
+    <div id="predictionMessage" style="margin-top: 20px; " class="d-flex justify-content-center">
+      <p id="result">The best possible crop is: 
+          <span ><strong id="predictedCrop" style="font-size: large;"> <%= prediction %>
+       </strong></span>
+      </p>
+
+      <% if (userValues.length > 0) { %>
+        <div class="userValues" style="font-weight: normal;">
+            <p>N : <%= userValues[0] %></p>
+            <p>P : <%= userValues[1] %></p>
+            <p>K : <%= userValues[2] %></p>
+            <p>pH : <%= userValues[3] %></p>
+            <p>Rainfall : <%= userValues[4] %></p>
+            <p>Temperature : <%= userValues[5] %></p>
+            <div class="d-flex justify-content-center">
+              <a
+                 href="/processCultivation/<%= prediction %>"
+                class="btn btn-info"
+                style="color: rgb(8, 8, 53); font-weight: bold; text-decoration: underline;"
+              >
+                How to cultivate??
+              </a>
+        </div>
+    <% } %>
+    
+    </div>
+  </form>
+</div>
+
+
+<!-- <script>
+  document.getElementById('cropForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get form data
+    const formData = new FormData(event.target);
+
+    formData.forEach((value, key) => {
+        console.log(key, value);
+    });
+    // Make a fetch request to the backend
+    fetch('/predict', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.json()) // Assuming the response is in JSON format
+    .then(data => {
+      // Handle the data from the backend
+      const predictionMessage = document.getElementById('predictionMessage');
+      const predictedCrop = document.getElementById('predictedCrop');
+      
+      predictedCrop.textContent = data.prediction;
+      predictionMessage.style.display = 'block'; // Show the prediction message
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script> -->
+
+
+
+<%- include('partials/footer') %>
