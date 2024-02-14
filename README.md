@@ -2,7 +2,7 @@
 
 SmartzAgri is an innovative agricultural solution designed to revolutionize traditional farming practices by providing personalized and data-driven recommendations for crop cultivation. Leveraging advanced technologies, including machine learning algorithms and Internet of Things (IoT) devices, CropReco empowers farmers with precise insights and suggestions to optimize yield and profitability while promoting sustainable farming practices.
 
-<img src="https://github.com/sanjeetbth7/SmartAgri/blob/master/public/images/logo.png" alt="CropReco Logo" width="150" height="150">
+<img src="https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/logo.png" alt="CropReco Logo" width="150" height="150">
 
 
 ## Team Members ( Infinite Void )
@@ -12,7 +12,7 @@ SmartzAgri is an innovative agricultural solution designed to revolutionize trad
 - **Twisha Talukder**
 
 
-![Team_member](https://github.com/sanjeetbth7/CropReco/blob/master/public/images/team.png)
+![Team_member](https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/demo/about.png)
 
 ### Here we have used : 
 - Frontend : HTML, CSS, javaScript, ejs  along with figma design
@@ -93,6 +93,8 @@ By addressing these challenges and leveraging advanced technologies, FASAL SUJHA
 
 4. **Delivery of Recommendations:** Recommendations are delivered to users via email and SMS, ensuring accessibility and ease of use.
 
+   ![flowchart](https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/flowchart.png)
+
 ## Benefits:
 
 - **Precision Agriculture:** CropReco enables precision agriculture by tailoring recommendations to specific environmental conditions, leading to efficient resource utilization and optimized crop yields.
@@ -110,10 +112,13 @@ CropReco is not just a tool; it's a comprehensive solution that aims to make agr
 
 # Screenshots
 * HOMEPAGE
-<img src="https://github.com/sanjeetbth7/CropReco/blob/master/public/images/home.png" alt="Home Page" width="90%" >
+<img src="https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/demo/home.png" alt="Home Page" width="90%" >
 
 * Prediction form
-<img src="https://github.com/sanjeetbth7/CropReco/blob/master/public/images/predict_form.png" alt="prediction form" width="90%" >
+<img src="https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/demo/prediction-form.png" alt="prediction form" width="90%" >
 
 * Prediction
-<img src="https://github.com/sanjeetbth7/CropReco/blob/master/public/images/prediction.png" alt="Prediction" width="90%" >
+<img src="https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/demo/prediction.png" alt="Prediction" width="90%" >
+
+* Cultivation Process
+<img src="https://github.com/sanjeetbth7/SmartzAgri/blob/master/public/images/demo/howTO.png" alt="Cultivation process" width="90%" >
