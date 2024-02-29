@@ -11,6 +11,7 @@ load_dotenv()
 
 # Load the API key from the .env file
 API_KEY = os.getenv("API_KEY")
+PORT = os.getenv("PORT")
 
 # Load the trained model
 model_filename =current_directory+'/XGB/crop_prediction_model_xgb.pkl'
@@ -59,7 +60,7 @@ def predict():
 
 if __name__ == '__main__':
     # Specify the port to run the Flask app on
-    PORT = int(os.getenv('PORT', 5000))  # Default port is 5000 if not specified in .env
+    PORT = int(os.getenv(PORT, 5000))  # Default port is 5000 if not specified in .env
 
     # Run the Flask app
     app.run(debug=True, port=PORT)
