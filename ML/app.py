@@ -13,10 +13,10 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
 # Load the trained model
-model_filename =current_directory+'\\XGB\\crop_prediction_model_xgb.pkl'
+model_filename =current_directory+'/XGB/crop_prediction_model_xgb.pkl'
 loaded_model = pickle.load(open(model_filename, 'rb'))
 
-scaler_filename =current_directory+'\\XGB\\scaler.pkl'
+scaler_filename =current_directory+'/XGB/scaler.pkl'
 scaler = pickle.load(open(scaler_filename, 'rb'))
 
 label_encoder_filename = current_directory+'/XGB/label_encoder.pkl'
