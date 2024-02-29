@@ -1,3 +1,2 @@
 flask
-os
 python-dotenv
