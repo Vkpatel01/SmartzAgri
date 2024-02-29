@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import ejs from "ejs";
 import dotenv from "dotenv";
-
+import axios  from 'axios';
 
 import mongoose from "mongoose";
 
@@ -13,16 +13,16 @@ dotenv.config();
 mongoose.set('strictQuery', true);
 
 // Local database
-// mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
-//     console.log("Connected to the database!");
-// });
+mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
+    console.log("Connected to the database!");
+});
 
 // MongoDB atlas database
-const uri = process.env.databaseURL;
+// const uri = process.env.databaseURL;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-  console.log("Connected to the database!");
-});
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+//   console.log("Connected to the database!");
+// });
 
 
 import { fileURLToPath } from 'url';
@@ -81,10 +81,6 @@ app.get("/", async (req, res) => {
         res.status(500).send('Internal Server Error');
     } 
 });
-
-app.get("/userManual", (req,res)=>{
-    res.render("userManual");
-})
 
 app.get("/about", (req,res)=>{
     res.render("about");
@@ -146,35 +142,48 @@ app.get("/processCultivation/:cropName", async (req, res) => {
 
 /* Connecting Backend with ML model */
 
+
+
 // Define the route to handle the prediction
-app.post('/predict', (req, res) => {
-    const cropDetails = req.body;
-    const userValues = [cropDetails.N,cropDetails.P,cropDetails.K,cropDetails.pH,cropDetails.rainfall,cropDetails.temperature]
+app.post('/predict', async (req, res) => {
+    try {
+        const cropDetails = req.body;
+        const userValues = [cropDetails.N,cropDetails.P,cropDetails.K,cropDetails.pH,cropDetails.rainfall,cropDetails.temperature]
+        const data = {
+            'N': cropDetails.N,
+            'P': cropDetails.P,
+            'K': cropDetails.K,
+            'pH': cropDetails.pH,
+            'rainfall': cropDetails.rainfall,
+            'temperature': cropDetails.temperature
+        };
 
+        // Define the URL of your Flask API endpoint
+        const url = process.env.API_URL;
 
-    // Spawn a Python child process
-    // const pythonProcess = spawn('python', [__dirname+'/ML/modelRes.py', JSON.stringify(userValues)]); // For GausianNB
-    const pythonProcess = spawn('python', [__dirname+'/ML/modelResXGB.py', JSON.stringify(userValues)]); // For xgboost
+        // Define the API key
+        const API_KEY = process.env.API_KEY;
 
-    // Collect data from the Python script
-    let result = '';
-    pythonProcess.stdout.on('data', (data) => {
-      result += data;
-    });
-    // console.log("output: "+result);
+        // Define the headers with the API key
+        const headers = {
+            'api_key': API_KEY,
+            'Content-Type': 'application/json'
+        };
 
-    // Handle the end of the Python script execution
-    pythonProcess.on('close', (code) => {
-      if (code === 0) {
+        // Make the POST request to the Flask API
+        const response = await axios.post(url, data, { headers });
+
+        // Store the prediction result
+        const result = response.data.prediction;
+
         console.log(result.trim());
-        res.render("crop",{prediction:result, userValues:userValues });
-      } else {
-        console.log("Error in Python script execution");
-        res.status(500).send('Error in Python script execution');
-      }
-    });
-  
+        res.render("crop", { prediction: result, userValues: userValues });
+    } catch (error) {
+        console.error("Error:", error.response.data);
+        res.status(500).send('Error in api call');
+    }
 });
+
 
 
 
