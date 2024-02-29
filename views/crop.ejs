@@ -110,36 +110,5 @@
 </div>
 
 
-<!-- <script>
-  document.getElementById('cropForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get form data
-    const formData = new FormData(event.target);
-
-    formData.forEach((value, key) => {
-        console.log(key, value);
-    });
-    // Make a fetch request to the backend
-    fetch('/predict', {
-      method: 'POST',
-      body: formData,
-    })
-    .then(response => response.json()) // Assuming the response is in JSON format
-    .then(data => {
-      // Handle the data from the backend
-      const predictionMessage = document.getElementById('predictionMessage');
-      const predictedCrop = document.getElementById('predictedCrop');
-      
-      predictedCrop.textContent = data.prediction;
-      predictionMessage.style.display = 'block'; // Show the prediction message
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  });
-</script> -->
-
-
 
 <%- include('partials/footer') %>
