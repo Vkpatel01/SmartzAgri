@@ -20,9 +20,9 @@ mongoose.set('strictQuery', true);
 // MongoDB atlas database
 const DBurl = process.env.databaseURL;
 
-mongoose.connect(DBurl).then(() => {
-  console.log("Connected to the database!");
-});
+//mongoose.connect(DBurl).then(() => {
+//  console.log("Connected to the database!");
+//});
 
 
 
@@ -96,7 +96,7 @@ app.get("/form", (req,res)=>{
     res.render("form");
 })
 
-app.post("/formSubmit", (req,res)=>{
+/* app.post("/formSubmit", (req,res)=>{
     const inputCrop = req.body;
 
     const crop = new Crop({
@@ -138,7 +138,7 @@ app.get("/processCultivation/:cropName", async (req, res) => {
   });
   
   
-
+*/
 
 
 /* Connecting Backend with ML model */
