@@ -60,7 +60,7 @@ def predict():
 
 if __name__ == '__main__':
     # Specify the port to run the Flask app on
-    PORT = int(os.getenv(PORT, 5000))  # Default port is 5000 if not specified in .env
+    PORT = int(os.getenv("PORT", 5000))  # Default port is 5000 if not specified in .env
 
     # Run the Flask app
     app.run(debug=True, port=PORT)
