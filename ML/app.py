@@ -57,6 +57,11 @@ def predict():
     # Return the prediction as a response
     return jsonify({'prediction': predicted_crop})
 
+# Error handler for 404 (page not found) error
+@app.errorhandler(404)
+def page_not_found(error):
+    return jsonify({'error': 'Not found'}), 404
+
 if __name__ == '__main__':
     # Specify the port to run the Flask app on
     PORT = int(os.getenv('PORT', 5000))  # Default port is 5000 if not specified in .env
