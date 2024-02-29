@@ -1,0 +1,4 @@
+flask
+pickle
+os
+python-dotenv

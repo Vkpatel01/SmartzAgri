@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import os
 import pickle
 from dotenv import load_dotenv
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+# from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Get the current working directory
 current_directory = os.getcwd()
