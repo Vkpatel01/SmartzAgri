@@ -13,16 +13,16 @@ dotenv.config();
 mongoose.set('strictQuery', true);
 
 // Local database
-mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
-    console.log("Connected to the database!");
-});
+// mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
+//     console.log("Connected to the database!");
+// });
 
 // MongoDB atlas database
-// const DBurl = process.env.databaseURL;
+const DBurl = process.env.databaseURL;
 
-// mongoose.connect(DBurl).then(() => {
-//   console.log("Connected to the database!");
-// });
+mongoose.connect(DBurl).then(() => {
+  console.log("Connected to the database!");
+});
 
 
 
@@ -100,7 +100,7 @@ app.get("/weather", (req,res)=>{
 //     res.render("form");
 // })
 
-app.post("/formSubmit", (req,res)=>{
+/* app.post("/formSubmit", (req,res)=>{
     const inputCrop = req.body;
 
     const crop = new Crop({
@@ -142,7 +142,7 @@ app.get("/processCultivation/:cropName", async (req, res) => {
   });
   
   
-
+*/
 
 
 /* Connecting Backend with ML model */

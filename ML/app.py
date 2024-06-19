@@ -11,12 +11,13 @@ load_dotenv()
 
 # Load the API key from the .env file
 API_KEY = os.getenv("API_KEY")
+PORT = os.getenv("PORT")
 
 # Load the trained model
-model_filename =current_directory+'\\XGB\\crop_prediction_model_xgb.pkl'
+model_filename =current_directory+'/XGB/crop_prediction_model_xgb.pkl'
 loaded_model = pickle.load(open(model_filename, 'rb'))
 
-scaler_filename =current_directory+'\\XGB\\scaler.pkl'
+scaler_filename =current_directory+'/XGB/scaler.pkl'
 scaler = pickle.load(open(scaler_filename, 'rb'))
 
 label_encoder_filename = current_directory+'/XGB/label_encoder.pkl'
@@ -64,7 +65,7 @@ def page_not_found(error):
 
 if __name__ == '__main__':
     # Specify the port to run the Flask app on
-    PORT = int(os.getenv('PORT', 5000))  # Default port is 5000 if not specified in .env
+   # PORT = int(os.getenv("PORT", 5000))  # Default port is 5000 if not specified in .env
 
     # Run the Flask app
-    app.run(debug=True, port=PORT)
+    app.run()
