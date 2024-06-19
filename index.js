@@ -13,16 +13,16 @@ dotenv.config();
 mongoose.set('strictQuery', true);
 
 // Local database
-// mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
-//     console.log("Connected to the database!");
-// });
+mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
+    console.log("Connected to the database!");
+});
 
 // MongoDB atlas database
-const DBurl = process.env.databaseURL;
+// const DBurl = process.env.databaseURL;
 
-mongoose.connect(DBurl).then(() => {
-  console.log("Connected to the database!");
-});
+// mongoose.connect(DBurl).then(() => {
+//   console.log("Connected to the database!");
+// });
 
 
 
@@ -91,10 +91,14 @@ app.get("/crop", (req,res)=>{
     res.render("crop",{prediction:" ",userValues:""});
 })
 
-// only to fill crop data
-app.get("/form", (req,res)=>{
-    res.render("form");
+app.get("/weather", (req,res)=>{
+    res.render("weather");
 })
+
+// only to fill crop data
+// app.get("/form", (req,res)=>{
+//     res.render("form");
+// })
 
 app.post("/formSubmit", (req,res)=>{
     const inputCrop = req.body;
@@ -128,7 +132,7 @@ app.get("/processCultivation/:cropName", async (req, res) => {
   
       // Use the await keyword to wait for the Promise to resolve
       const foundCrop = await Crop.find({ name: { $regex: new RegExp("^" + reqCrop, "i") } });
-    //   console.log(foundCrop[0].name, reqCrop);
+
       res.render("cropCultivation", { crop: foundCrop[0] });
     } catch (err) {
       // Handle the error appropriately

@@ -1,91 +1,24 @@
-
 <%- include('partials/header') %>
-  <div class="containerCrop">
-    <h1 class="crop-title"><%= crop.name %> Cultivation Guide</h1>
 
-    <section class="cultivation-section">
-      <h2>1. Land Preparation:</h2>
-      <ul>
-        <li><%= crop.steps.Land_Preparation %></li>
+<% const regex = /([A-Za-z0-9] I{1,3}\. [^I]+\.)\b/g; %>
+<div class="containerCrop">
+  <h1 class="crop-title"><%= crop.name %> Cultivation Guide</h1>
+
+  <% const arr = crop.steps; %>
+  <% Object.entries(arr).forEach(([key, value]) => { %>
+   <section class="cultivation-section">
+     <h2><%= key %></h2>
+     <ul>
+        <li><%= value %></li>
       </ul>
-    </section>
+    </section> 
+    <% }); %>
 
-    <section class="cultivation-section">
-      <h2>2. Soil Testing:</h2>
-      <ul>
-        <li><%= crop.steps.Soil_Testing %></li>
-      </ul>
-    </section>
 
-    <section class="cultivation-section">
-        <h2>3. Seed Selection::</h2>
-        <ul>
-          <li><%= crop.steps.Seed_Selection %></li>
-        </ul>
-      </section>
-  
-      <section class="cultivation-section">
-        <h2>4. Sowing:</h2>
-        <ul>
-          <li><%= crop.steps.Sowing %></li>
-        </ul>
-      </section>
-
-      <section class="cultivation-section">
-        <h2>5. Irrigation: :</h2>
-        <ul>
-          <li><%= crop.steps.Irrigation %></li>
-        </ul>
-      </section>
-  
-      <section class="cultivation-section">
-        <h2>6. Weed Control :</h2>
-        <ul>
-          <li><%= crop.steps.Weed_Control %></li>
-        </ul>
-      </section>
-
-      <section class="cultivation-section">
-        <h2>7.  Fertilization :</h2>
-        <ul>
-          <li><%= crop.steps.Fertilization %></li>
-        </ul>
-      </section>
-  
-      <section class="cultivation-section">
-        <h2>8. Disease and Pest Management :</h2>
-        <ul>
-          <li><%= crop.steps.Disease_and_Pest_Management %></li>
-        </ul>
-      </section>
-
-      <section class="cultivation-section">
-        <h2>9.  Crop Monitoring :</h2>
-        <ul>
-          <li><%= crop.steps.Crop_Monitoring %></li>
-        </ul>
-      </section>
-  
-      <section class="cultivation-section">
-        <h2>10. Harvesting :</h2>
-        <ul>
-          <li><%= crop.steps.Harvesting %></li>
-        </ul>
-      </section>
-
-      <section class="cultivation-section">
-        <h2>11.  Drying and Storage :</h2>
-        <ul>
-          <li><%= crop.steps.Drying_and_Storage %></li>
-        </ul>
-      </section>
-
-    <!-- Repeat similar sections for each step -->
-
-    <section class="estimated-cost">
-      <h2>Estimated Cost (per hectare):</h2>
-      <p class="cost"><%= crop.cost %></p>
-    </section>
-  </div>
+  <section class="estimated-cost">
+    <h2>Estimated Cost (per hectare):</h2>
+    <p class="cost"><%= crop.cost %></p>
+  </section>
+</div>
 
 <%- include('partials/footer') %>
