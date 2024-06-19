@@ -13,16 +13,16 @@ dotenv.config();
 mongoose.set('strictQuery', true);
 
 // Local database
-// mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
-//     console.log("Connected to the database!");
-// });
+mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
+    console.log("Connected to the database!");
+});
 
 // MongoDB atlas database
-const DBurl = process.env.databaseURL;
+// const DBurl = process.env.databaseURL;
 
-mongoose.connect(DBurl).then(() => {
-  console.log("Connected to the database!");
-});
+// mongoose.connect(DBurl).then(() => {
+//   console.log("Connected to the database!");
+// });
 
 
 
@@ -69,9 +69,6 @@ const Crop = mongoose.model("Crop",cropSchema );
 
 
 
-
-
-
 app.get("/", async (req, res) => {
     try {
         res.render("index");
@@ -95,12 +92,14 @@ app.get("/weather", (req,res)=>{
     res.render("weather");
 })
 
-// only to fill crop data
+/* Only for fill crop data  { development purpose }*/
+/* 
+
 // app.get("/form", (req,res)=>{
 //     res.render("form");
 // })
 
-/* app.post("/formSubmit", (req,res)=>{
+ app.post("/formSubmit", (req,res)=>{
     const inputCrop = req.body;
 
     const crop = new Crop({
@@ -126,6 +125,8 @@ app.get("/weather", (req,res)=>{
 
 })
 
+*/
+
 app.get("/processCultivation/:cropName", async (req, res) => {
     try {
       const reqCrop = req.params.cropName.toLowerCase(); // Convert to lowercase
@@ -142,7 +143,7 @@ app.get("/processCultivation/:cropName", async (req, res) => {
   });
   
   
-*/
+
 
 
 /* Connecting Backend with ML model */
@@ -166,7 +167,6 @@ app.post('/predict', async (req, res) => {
         // Define the URL of your Flask API endpoint
         const url = process.env.API_URL;
 
-        // Define the API key
         const API_KEY = process.env.API_KEY;
 
         // Define the headers with the API key
@@ -178,7 +178,6 @@ app.post('/predict', async (req, res) => {
         // Make the POST request to the Flask API
         const response = await axios.post(url, data, { headers });
 
-        // Store the prediction result
         const result = response.data.prediction;
 
         console.log(result.trim());
@@ -190,15 +189,8 @@ app.post('/predict', async (req, res) => {
 });
 
 
-
-
-
 app.post("/crop", (req,res)=>{
   res.render("crop",{prediction:" "});
-})
-
-app.post("/userManual", (req,res)=>{
-    res.render("userManual");
 })
 
 app.post("/about", (req,res)=>{
