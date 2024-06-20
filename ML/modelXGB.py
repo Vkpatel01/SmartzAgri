@@ -1,6 +1,3 @@
-
-
-
 import os
 
 import pandas as pd
@@ -13,7 +10,6 @@ from sklearn.metrics import accuracy_score
 # Get the current working directory
 current_directory = os.getcwd()
 
-
 # Import necessary libraries
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
@@ -21,8 +17,8 @@ from sklearn.metrics import accuracy_score
 
 
 # Load your dataset
-train_dataset = pd.read_csv(current_directory + "/ML/data-set/TRAINFILE/NewData.csv")
-test_dataset = pd.read_csv(current_directory + "/ML/data-set/TESTFILE/NewTestData.csv")
+train_dataset = pd.read_csv(current_directory + "/data-set/TRAINFILE/NewData.csv")
+test_dataset = pd.read_csv(current_directory + "/data-set/TESTFILE/NewTestData.csv")
 
 # Droping "Unnamed: 0" which show Sirial No.
 train_dataset = train_dataset.drop(columns=['Unnamed: 0'])
@@ -64,7 +60,7 @@ print(f"Accuracy with Standardized Features and XGBoost: {accuracy_xgboost * 100
 
 
 # Save the trained model using Pickle
-model_filename = current_directory + '/ML/XGB/'
+model_filename = current_directory + '/XGB/'
 pickle.dump(clf_xgboost, open(model_filename+'crop_prediction_model_xgb.pkl', 'wb'))
 
 pickle.dump(scaler, open(model_filename + 'scaler.pkl', 'wb'))

@@ -12,6 +12,13 @@ import { spawn } from "child_process";
 dotenv.config();
 mongoose.set('strictQuery', true);
 
+
+
+// console.log(process.env.WEATHER_API_KEY); // Should log your API key
+// console.log(process.env.API_URL);        // Should log your API URL
+// console.log(process.env.API_KEY);        // Should log your Flask API key
+
+
 // Local database
 mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
     console.log("Connected to the database!");
@@ -89,7 +96,8 @@ app.get("/crop", (req,res)=>{
 })
 
 app.get("/weather", (req,res)=>{
-    res.render("weather");
+    const weatherApiKey = process.env.WEATHER_API_KEY;
+    res.render("weather",{weatherApi:weatherApiKey});
 })
 
 /* Only for fill crop data  { development purpose }*/

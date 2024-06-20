@@ -68,4 +68,4 @@ if __name__ == '__main__':
    # PORT = int(os.getenv("PORT", 5000))  # Default port is 5000 if not specified in .env
 
     # Run the Flask app
-    app.run()
+    app.run(debug=True)

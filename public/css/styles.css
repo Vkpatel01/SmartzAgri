@@ -15,6 +15,7 @@ body {
   padding: 0;
   background-color: #cfe78184;
   background-image: url(../images/10.jpg);
+  background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;   
@@ -36,17 +37,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
   }
-  
-  .navbar {
-    background-color: var(--nav-bgcolor);
-    color: var(--primary-text-color);
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0;
-  }
-  
+
   a {
     text-decoration: none;
     color: var(--primary-text-color);
@@ -95,36 +86,54 @@ body {
     border-radius: 20px 0px;
     font-size: 20px;
   }
-  .nav-list {
+  
+  .navbar {
+    background-color: var(--nav-bgcolor);
+    color: var(--primary-text-color);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* Ensures the navbar is on top of other content */
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for depth */
+}
+
+.nav-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-  }
-  
-  .nav-list li {
+}
+
+.nav-list li {
     margin-right: 20px;
-  }
-  
-  .nav-list a {
+}
+
+.nav-list a {
     text-decoration: none;
     color: white;
     font-weight: bold;
     font-size: 18px;
     transition: color 0.3s ease;
-  }
-  
-  .nav-list a:hover {
+}
+
+.nav-list a:hover {
     color: #ddd;
-  }
+}
+
   
   .content {
+    box-sizing: border-box;
     flex-grow: 1;
   }
   
   .home-container {
     max-width: 1000px;
-    margin: 15px auto;
+    margin: 10px auto;
     text-align: center;
   }
   
@@ -137,11 +146,10 @@ body {
   
   .feature {
     width: 45%;
-    margin-bottom: 20px;
-    padding: 20px;
-    /* border: 1px solid #3eb1f8; */
+    margin-bottom: 10px;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
   .feature h2 {
@@ -193,7 +201,7 @@ body {
 .about-container {
   border-radius: 10px;
   background-color: #ede9e9a1;
-  max-width: 800px;
+  max-width: 75%;
   margin: 20px auto;
   padding: 20px;
 }

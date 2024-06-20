@@ -18,6 +18,7 @@
         </div>
     </section>
         <script>
+          
             document.addEventListener("DOMContentLoaded", () => {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showWeather, showError);
@@ -37,7 +38,7 @@
       function showWeather(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        const apiKey = "82261fc9be4cb9551142f153b8a0c499"; 
+        const apiKey = "<%= weatherApi %>";
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
         fetch(url)
@@ -53,7 +54,7 @@
       }
 
       function getWeather() {
-        const apiKey = "82261fc9be4cb9551142f153b8a0c499";
+        const apiKey = "<%= weatherApi %>";
         const city = document.getElementById("city").value;
 
         if (!city) {
