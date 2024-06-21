@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import ejs from "ejs";
 import dotenv from "dotenv";
-
+import axios  from 'axios';
 
 import mongoose from "mongoose";
 
@@ -12,17 +12,25 @@ import { spawn } from "child_process";
 dotenv.config();
 mongoose.set('strictQuery', true);
 
+
+
+// console.log(process.env.WEATHER_API_KEY); // Should log your API key
+// console.log(process.env.API_URL);        // Should log your API URL
+// console.log(process.env.API_KEY);        // Should log your Flask API key
+
+
 // Local database
 mongoose.connect("mongodb://127.0.0.1:27017/cropDB").then(() => {
     console.log("Connected to the database!");
 });
 
 // MongoDB atlas database
-const uri = process.env.databaseURL;
+// const DBurl = process.env.databaseURL;
 
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+// mongoose.connect(DBurl).then(() => {
 //   console.log("Connected to the database!");
 // });
+
 
 
 import { fileURLToPath } from 'url';
@@ -68,9 +76,6 @@ const Crop = mongoose.model("Crop",cropSchema );
 
 
 
-
-
-
 app.get("/", async (req, res) => {
     try {
         res.render("index");
@@ -82,10 +87,6 @@ app.get("/", async (req, res) => {
     } 
 });
 
-app.get("/userManual", (req,res)=>{
-    res.render("userManual");
-})
-
 app.get("/about", (req,res)=>{
     res.render("about");
 })
@@ -94,12 +95,19 @@ app.get("/crop", (req,res)=>{
     res.render("crop",{prediction:" ",userValues:""});
 })
 
-// only to fill crop data
-app.get("/form", (req,res)=>{
-    res.render("form");
+app.get("/weather", (req,res)=>{
+    const weatherApiKey = process.env.WEATHER_API_KEY;
+    res.render("weather",{weatherApi:weatherApiKey});
 })
 
-app.post("/formSubmit", (req,res)=>{
+/* Only for fill crop data  { development purpose }*/
+/* 
+
+// app.get("/form", (req,res)=>{
+//     res.render("form");
+// })
+
+ app.post("/formSubmit", (req,res)=>{
     const inputCrop = req.body;
 
     const crop = new Crop({
@@ -125,13 +133,15 @@ app.post("/formSubmit", (req,res)=>{
 
 })
 
+*/
+
 app.get("/processCultivation/:cropName", async (req, res) => {
     try {
       const reqCrop = req.params.cropName.toLowerCase(); // Convert to lowercase
   
       // Use the await keyword to wait for the Promise to resolve
       const foundCrop = await Crop.find({ name: { $regex: new RegExp("^" + reqCrop, "i") } });
-    //   console.log(foundCrop[0].name, reqCrop);
+
       res.render("cropCultivation", { crop: foundCrop[0] });
     } catch (err) {
       // Handle the error appropriately
@@ -146,45 +156,49 @@ app.get("/processCultivation/:cropName", async (req, res) => {
 
 /* Connecting Backend with ML model */
 
+
+
 // Define the route to handle the prediction
-app.post('/predict', (req, res) => {
-    const cropDetails = req.body;
-    const userValues = [cropDetails.N,cropDetails.P,cropDetails.K,cropDetails.pH,cropDetails.rainfall,cropDetails.temperature]
+app.post('/predict', async (req, res) => {
+    try {
+        const cropDetails = req.body;
+        const userValues = [cropDetails.N,cropDetails.P,cropDetails.K,cropDetails.pH,cropDetails.rainfall,cropDetails.temperature]
+        const data = {
+            'N': cropDetails.N,
+            'P': cropDetails.P,
+            'K': cropDetails.K,
+            'pH': cropDetails.pH,
+            'rainfall': cropDetails.rainfall,
+            'temperature': cropDetails.temperature
+        };
 
+        // Define the URL of your Flask API endpoint
+        const url = process.env.API_URL;
 
-    // Spawn a Python child process
-    // const pythonProcess = spawn('python', [__dirname+'/ML/modelRes.py', JSON.stringify(userValues)]); // For GausianNB
-    const pythonProcess = spawn('python', [__dirname+'/ML/modelResXGB.py', JSON.stringify(userValues)]); // For xgboost
+        const API_KEY = process.env.API_KEY;
 
-    // Collect data from the Python script
-    let result = '';
-    pythonProcess.stdout.on('data', (data) => {
-      result += data;
-    });
-    // console.log("output: "+result);
+        // Define the headers with the API key
+        const headers = {
+            'api_key': API_KEY,
+            'Content-Type': 'application/json'
+        };
 
-    // Handle the end of the Python script execution
-    pythonProcess.on('close', (code) => {
-      if (code === 0) {
+        // Make the POST request to the Flask API
+        const response = await axios.post(url, data, { headers });
+
+        const result = response.data.prediction;
+
         console.log(result.trim());
-        res.render("crop",{prediction:result, userValues:userValues });
-      } else {
-        console.log("Error in Python script execution");
-        res.status(500).send('Error in Python script execution');
-      }
-    });
-  
+        res.render("crop", { prediction: result, userValues: userValues });
+    } catch (error) {
+        console.error("Error:", error.response.data);
+        res.status(500).send('Error in api call');
+    }
 });
-
-
 
 
 app.post("/crop", (req,res)=>{
   res.render("crop",{prediction:" "});
-})
-
-app.post("/userManual", (req,res)=>{
-    res.render("userManual");
 })
 
 app.post("/about", (req,res)=>{

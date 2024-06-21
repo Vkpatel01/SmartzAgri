@@ -1,0 +1,117 @@
+<%- include('partials/header') %>
+    <section class="weather">
+
+        <div id="weather-container" style="margin-top: 10px;">
+            <h2 style="margin: auto; color: #0e4f1e;">Current Weather</h2>
+            <input type="text" id="city" placeholder="Enter city" />
+            
+            <button id="search-button" onclick="getWeather()">Search</button>
+            <div>
+                <button id="current-location-button" onclick="getLocation()">Current Location</button>
+            </div>
+            
+            <img id="weather-icon" alt="Weather Icon" />
+            
+            <div id="temp-div"></div>
+            
+            <div id="weather-info"></div>
+        </div>
+    </section>
+        <script>
+          
+            document.addEventListener("DOMContentLoaded", () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showWeather, showError);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      });
+
+            const getLocation = () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showWeather, showError);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      };
+
+      function showWeather(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const apiKey = "<%= weatherApi %>";
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            displayWeather(data)
+          })
+          .catch((error) => console.log("Error fetching weather data:", error));
+      }
+
+      function showError() {
+        console.log("Error in getting location");
+      }
+
+      function getWeather() {
+        const apiKey = "<%= weatherApi %>";
+        const city = document.getElementById("city").value;
+
+        if (!city) {
+          alert("Please enter a city");
+          return;
+        }
+
+        const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+        fetch(currentWeatherUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            displayWeather(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching current weather data:", error);
+            alert("Error fetching current weather data. Please try again.");
+          });
+      }
+
+      function displayWeather(data) {
+        const tempDivInfo = document.getElementById("temp-div");
+        const weatherInfoDiv = document.getElementById("weather-info");
+        const weatherIcon = document.getElementById("weather-icon");
+
+        // Clear previous content
+        weatherInfoDiv.innerHTML = "";
+        tempDivInfo.innerHTML = "";
+
+        if (data.cod === "404") {
+          weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
+        } else {
+          const cityName = data.name;
+          const temperature = data.main.temp; 
+          const description = data.weather[0].description;
+          const iconCode = data.weather[0].icon;
+          const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+          const temperatureHTML = `<p>${temperature}°C</p>`;
+          const weatherHtml = `
+            <p>${cityName}</p>
+            <p>${description}</p>
+          `;
+
+          tempDivInfo.innerHTML = temperatureHTML;
+          weatherInfoDiv.innerHTML = weatherHtml;
+          weatherIcon.src = iconUrl;
+          weatherIcon.alt = description;
+
+          showImage();
+        }
+      }
+
+      function showImage() {
+        const weatherIcon = document.getElementById("weather-icon");
+        weatherIcon.style.display = "block"; // Make the image visible once it's loaded
+      }
+    </script>
+  </body>
+</html>

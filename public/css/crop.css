@@ -7,26 +7,6 @@
   --primary-btnColor:#4caf50;
 }
 
-body {
-  backdrop-filter: blur(2px);
-  background-color: var(--primary-bgcolor);
-  background-image: url(../images/2.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  font-family: sans-serif;
-  padding: 0;
-  margin: 0;
-}
-.navbar {
-  background-color: var(--nav-bgcolor);
-  color: var(--primary-text-color);
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0;
-}
 
 a {
   text-decoration: none;
@@ -175,3 +155,7 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+
+
+  

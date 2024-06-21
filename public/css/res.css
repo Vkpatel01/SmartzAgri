@@ -1,0 +1,71 @@
+/* Add this CSS to your existing styles */
+
+.hamburger-menu {
+    display: none; /* Hide by default on larger screens */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-text-color);
+    margin: 5px auto;
+    transition: background-color 0.3s ease;
+  }
+  
+  .links {
+    display: flex;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: var(--primary-text-color);
+    margin-right: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .links a:hover {
+    color: #ddd;
+  }
+  
+  @media screen and (max-width: 450px) {
+    .form-container{
+        width: fit-content;
+    }
+    .hamburger-menu {
+      display: block; /* Show on smaller screens */
+    }
+  
+    .links {
+        z-index: 2;
+      display: none; /* Hide by default on smaller screens */
+      flex-direction: column;
+      position: absolute;
+      top: 60px; /* Adjust as needed */
+      left: 0;
+      background-color: var(--nav-bgcolor);
+      width: 100%;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+  
+    .links a {
+      margin: 10px 0;
+    }
+  
+    .show {
+      display: block; /* Show when toggled */
+    }
+
+    .form-container{
+        width: 86%;
+    }
+    .feature{
+        width: 80%;
+    }
+  }
+  

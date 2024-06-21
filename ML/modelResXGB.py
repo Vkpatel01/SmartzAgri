@@ -11,7 +11,7 @@ current_directory = os.getcwd()
 
 # Load the trained model
 # model_filename = current_directory+'/crop_prediction_model.pkl'
-model_filename = current_directory+'/ML/XGB/crop_prediction_model_xgb.pkl'
+model_filename = current_directory+'/XGB/crop_prediction_model_xgb.pkl'
 loaded_model = pickle.load(open(model_filename, 'rb'))
 
 # Read user input from Node.js backend

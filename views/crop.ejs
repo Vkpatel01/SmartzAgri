@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 <h2 class="blurred-overlay" style="margin: auto; margin-top: 10px;">Sow the Seeds of Success: Choosing the Right Crop for Your Farm</h2>
-<div class="form-container">
+<div class="form-container" style="max-width: 90%;">
   
 
   <form id="cropForm" action="/predict" method="post">
@@ -11,6 +11,7 @@
         class="form-control"
         id="Nitrogen"
         name="N"
+        value="<%= userValues[0] || null  %>"
         placeholder="Enter the value (example: 50)"
         required
       />
@@ -22,7 +23,8 @@
         class="form-control"
         id="Phosphorous"
         name="P"
-        placeholder="Enter the value (example: 50)"
+        value="<%= userValues[1] || null  %>"
+        placeholder= "Enter the value (example: 50)"
         required
       />
     </div>
@@ -33,6 +35,7 @@
         class="form-control"
         id="Pottasium"
         name="K"
+        value="<%= userValues[2] || null  %>"
         placeholder="Enter the value (example: 50)"
         required
       />
@@ -44,7 +47,8 @@
         class="form-control"
         id="ph"
         name="pH"
-        placeholder="Enter the value"
+        value="<%= userValues[3] || null  %>"
+        placeholder= "Enter the value" 
         required
       />
     </div>
@@ -55,7 +59,8 @@
         class="form-control"
         id="Rainfall"
         name="rainfall"
-        placeholder="Enter the value"
+        value="<%= userValues[4] || null  %>"
+        placeholder= "Enter the value"
         required
       />
     </div>
@@ -66,7 +71,8 @@
         class="form-control"
         id="temp"
         name="temperature"
-        placeholder="Enter the value"
+        value="<%= userValues[5] || null  %>"
+        placeholder=  "Enter the value" 
         required
       />
     </div>
@@ -88,12 +94,6 @@
 
       <% if (userValues.length > 0) { %>
         <div class="userValues" style="font-weight: normal;">
-            <p>N : <%= userValues[0] %></p>
-            <p>P : <%= userValues[1] %></p>
-            <p>K : <%= userValues[2] %></p>
-            <p>pH : <%= userValues[3] %></p>
-            <p>Rainfall : <%= userValues[4] %></p>
-            <p>Temperature : <%= userValues[5] %></p>
             <div class="d-flex justify-content-center">
               <a
                  href="/processCultivation/<%= prediction %>"
@@ -108,37 +108,6 @@
     </div>
   </form>
 </div>
-
-
-<!-- <script>
-  document.getElementById('cropForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get form data
-    const formData = new FormData(event.target);
-
-    formData.forEach((value, key) => {
-        console.log(key, value);
-    });
-    // Make a fetch request to the backend
-    fetch('/predict', {
-      method: 'POST',
-      body: formData,
-    })
-    .then(response => response.json()) // Assuming the response is in JSON format
-    .then(data => {
-      // Handle the data from the backend
-      const predictionMessage = document.getElementById('predictionMessage');
-      const predictedCrop = document.getElementById('predictedCrop');
-      
-      predictedCrop.textContent = data.prediction;
-      predictionMessage.style.display = 'block'; // Show the prediction message
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  });
-</script> -->
 
 
 
