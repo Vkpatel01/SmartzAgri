@@ -105,10 +105,6 @@ By addressing these challenges and leveraging advanced technologies, FASAL SUJHA
 
 CropReco is not just a tool; it's a comprehensive solution that aims to make agriculture smarter, more efficient, and environmentally sustainable. By integrating cutting-edge technologies with agricultural expertise, CropReco empowers farmers to thrive in an ever-changing agricultural landscape.
 
-## Demo Video
-
-[![Watch the video](https://img.youtube.com/vi/zPcmilw_NC0/0.jpg)](https://www.youtube.com/watch?v=zPcmilw_NC0)
-
 
 # Screenshots
 * HOMEPAGE
